@@ -5,5 +5,6 @@ public interface ErrorCode {
     String getCode();
 
     String getDefaultMessage();
-
 }
+
+
