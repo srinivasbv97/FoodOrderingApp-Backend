@@ -22,50 +22,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2187793b-e64d-48fa-93dc-77d9c32a3738" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/exception/RestExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/CategoryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/CustomerService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/ItemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/businness/RestaurantService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/CategoryDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/CustomerDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/ItemDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/OrderDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/OrderItemDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/dao/RestaurantDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/AddressEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CategoryEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CouponEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CustomerAuthEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/CustomerEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/ItemEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/OrderEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/OrderItemEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/PaymentEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/RestaurantEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/entity/StateEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/exception/SaveOrderException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-service/src/main/java/com/upgrad/FoodOrderingApp/service/type/ItemType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2187793b-e64d-48fa-93dc-77d9c32a3738" name="Default" comment="Added Restaurant APIS">
+      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/CategoryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/java/com/upgrad/FoodOrderingApp/api/controller/ItemController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/FoodOrderingApp-api.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/FoodOrderingApp-api.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/AddressControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/AddressControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/CategoryControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/CategoryControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/CustomerControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/CustomerControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/ItemControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/ItemControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/OrderControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/OrderControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/PaymentControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/PaymentControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-api/src/test/java/com/upgrad/FoodOrderingApp/api/controller/RestaurantControllerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-db/FoodOrderingApp-db.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-db/FoodOrderingApp-db.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-db/src/main/resources/config/localhost.properties" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-db/src/main/resources/config/localhost.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingApp-service/FoodOrderingApp-service.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingApp-service/FoodOrderingApp-service.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FoodOrderingAppBackend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FoodOrderingAppBackend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,6 +117,7 @@
     <property name="RequestMappingsPanelWidth0" value="75" />
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="RequestMappingsPanelWidth2" value="75" />
+    <property name="SONARLINT_PRECOMMIT_ANALYSIS" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550834160886" />
@@ -184,11 +145,11 @@
       <recent name="C:\Users\razi.akram\Downloads\FoodOrderingAppBackend\FoodOrderingApp-api\src\main\resources\endpoints" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.upgrad.FoodOrderingApp.api.controller" />
       <recent name="com.upgrad.FoodOrderingApp.service.entity" />
       <recent name="com.upgrad.FoodOrderingApp.service.type" />
       <recent name="com.upgrad.FoodOrderingApp.service.exception" />
       <recent name="com.upgrad.FoodOrderingApp.api.exception" />
-      <recent name="com.upgrad.FoodOrderingApp.api.controller" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Admin\Documents\FoodOrderingAppBackend\FoodOrderingApp-db\src\main\resources\config" />
@@ -357,8 +318,16 @@
       <workItem from="1543492206993" duration="13152000" />
       <workItem from="1545232696710" duration="1008000" />
       <workItem from="1607856806442" duration="936000" />
-      <workItem from="1607858047776" duration="1900000" />
+      <workItem from="1607858047776" duration="3551000" />
     </task>
+    <task id="LOCAL-00001" summary="Added Restaurant APIS">
+      <created>1607860338418</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1607860338418</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -410,6 +379,10 @@
       </map>
     </option>
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Restaurant APIS" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Restaurant APIS" />
+  </component>
   <component name="WindowStateProjectService">
     <state x="627" y="329" key="#Assign_Data_Sources" timestamp="1607858651101">
       <screen x="0" y="25" width="1440" height="818" />
@@ -435,22 +408,22 @@
       <screen x="0" y="25" width="1440" height="818" />
     </state>
     <state x="398" y="168" width="643" height="627" key="#com.intellij.jpa.generation.ui.DatabaseSchemaImportDialog/0.25.1440.818@0.25.1440.818" timestamp="1607859328609" />
-    <state width="1398" height="167" key="GridCell.Tab.0.bottom" timestamp="1607859742163">
+    <state width="1398" height="167" key="GridCell.Tab.0.bottom" timestamp="1607861584947">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
-    <state width="1398" height="167" key="GridCell.Tab.0.bottom/0.25.1440.818@0.25.1440.818" timestamp="1607859742163" />
-    <state width="1398" height="167" key="GridCell.Tab.0.center" timestamp="1607859742162">
+    <state width="1398" height="167" key="GridCell.Tab.0.bottom/0.25.1440.818@0.25.1440.818" timestamp="1607861584947" />
+    <state width="1398" height="167" key="GridCell.Tab.0.center" timestamp="1607861584947">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
-    <state width="1398" height="167" key="GridCell.Tab.0.center/0.25.1440.818@0.25.1440.818" timestamp="1607859742162" />
-    <state width="1398" height="167" key="GridCell.Tab.0.left" timestamp="1607859742161">
+    <state width="1398" height="167" key="GridCell.Tab.0.center/0.25.1440.818@0.25.1440.818" timestamp="1607861584947" />
+    <state width="1398" height="167" key="GridCell.Tab.0.left" timestamp="1607861584946">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
-    <state width="1398" height="167" key="GridCell.Tab.0.left/0.25.1440.818@0.25.1440.818" timestamp="1607859742161" />
-    <state width="1398" height="167" key="GridCell.Tab.0.right" timestamp="1607859742162">
+    <state width="1398" height="167" key="GridCell.Tab.0.left/0.25.1440.818@0.25.1440.818" timestamp="1607861584946" />
+    <state width="1398" height="167" key="GridCell.Tab.0.right" timestamp="1607861584947">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
-    <state width="1398" height="167" key="GridCell.Tab.0.right/0.25.1440.818@0.25.1440.818" timestamp="1607859742162" />
+    <state width="1398" height="167" key="GridCell.Tab.0.right/0.25.1440.818@0.25.1440.818" timestamp="1607861584947" />
     <state x="308" y="173" key="IDE.errors.dialog" timestamp="1607856863922">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
@@ -459,10 +432,14 @@
       <screen x="0" y="25" width="1440" height="818" />
     </state>
     <state x="258" y="93" key="Maven.ArtifactSearchDialog/0.25.1440.818@0.25.1440.818" timestamp="1607856930442" />
-    <state x="385" y="195" width="670" height="675" key="run.anything.popup" timestamp="1607859724132">
+    <state x="320" y="158" key="Vcs.Push.Dialog.v2" timestamp="1607860567427">
       <screen x="0" y="25" width="1440" height="818" />
     </state>
-    <state x="385" y="195" width="670" height="675" key="run.anything.popup/0.25.1440.818@0.25.1440.818" timestamp="1607859724132" />
+    <state x="320" y="158" key="Vcs.Push.Dialog.v2/0.25.1440.818@0.25.1440.818" timestamp="1607860567427" />
+    <state x="385" y="195" width="670" height="675" key="run.anything.popup" timestamp="1607861568627">
+      <screen x="0" y="25" width="1440" height="818" />
+    </state>
+    <state x="385" y="195" width="670" height="675" key="run.anything.popup/0.25.1440.818@0.25.1440.818" timestamp="1607861568627" />
   </component>
   <component name="masterDetails">
     <states>
