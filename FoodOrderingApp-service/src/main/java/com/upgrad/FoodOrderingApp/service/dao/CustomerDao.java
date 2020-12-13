@@ -57,4 +57,31 @@ public class CustomerDao {
             return null;
         }
     }
+
+    /**
+     * Method takes an access token as a parameter and returns the matching CustomerAuthEntity
+     *
+     * @param accessToken access token
+     * @return CustomerAuthEntity
+     */
+    public CustomerAuthEntity getCustomerAuthenticationByAccessToken(String accessToken) {
+        try {
+            return entityManager
+                    .createNamedQuery("Customer.ByAuthToken", CustomerAuthEntity.class)
+                    .setParameter("accessToken", accessToken)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    /**
+     * Method takes an updated CustomerEntity and merges the updates to the database
+     *
+     * @param customerEntity Updated CustomerEntity
+     * @return persisted CustomerEntity
+     */
+    public CustomerEntity updateCustomer(final CustomerEntity customerEntity) {
+        return entityManager.merge(customerEntity);
+    }
 }

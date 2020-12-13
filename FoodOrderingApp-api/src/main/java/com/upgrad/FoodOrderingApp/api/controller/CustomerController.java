@@ -1,8 +1,6 @@
 package com.upgrad.FoodOrderingApp.api.controller;
 
-import com.upgrad.FoodOrderingApp.api.model.LoginResponse;
-import com.upgrad.FoodOrderingApp.api.model.SignupCustomerRequest;
-import com.upgrad.FoodOrderingApp.api.model.SignupCustomerResponse;
+import com.upgrad.FoodOrderingApp.api.model.*;
 import com.upgrad.FoodOrderingApp.service.businness.CustomerService;
 import com.upgrad.FoodOrderingApp.service.common.AppConstants;
 import com.upgrad.FoodOrderingApp.service.common.AppUtils;
@@ -10,7 +8,9 @@ import com.upgrad.FoodOrderingApp.service.common.UnexpectedException;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import com.upgrad.FoodOrderingApp.service.exception.AuthenticationFailedException;
+import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.SignUpRestrictedException;
+import com.upgrad.FoodOrderingApp.service.exception.UpdateCustomerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ import java.util.Collections;
 import java.util.StringTokenizer;
 import java.util.UUID;
 
-import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.ATH_003;
-import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.SGR_005;
+import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.*;
+import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.UCR_003;
 
 @CrossOrigin //this annotation helps to share resources across origin
 @RestController
@@ -119,6 +119,123 @@ public class CustomerController {
         return new ResponseEntity<LoginResponse>(response, headers, HttpStatus.OK);
     }
 
+    /**
+     * Methods takes a Customer access token and logs the user out of the application
+     *
+     * @param headerParam Customer access token as a request header parameter
+     * @return Customer Id
+     * @throws AuthorizationFailedException on invalid/incorrect access token
+     * @throws UnexpectedException on any other errors
+     */
+    @CrossOrigin
+    @RequestMapping(
+            method = RequestMethod.POST,
+            path = "/logout",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<LogoutResponse> logoutCustomer(
+            @RequestHeader("authorization") final String headerParam) //request the access token of the signed-in customer in Request Header
+            throws AuthorizationFailedException, UnexpectedException {
+        // Get Bearer Authorization Token
+        final String accessToken = AppUtils.getBearerAuthToken(headerParam);
+
+        // Logout customer and invalidate authorization token
+        final CustomerAuthEntity customerAuthEntity = customerService.logout(accessToken);
+
+        // Map customer to logout response
+        final LogoutResponse response = new LogoutResponse();
+        response.id(customerAuthEntity.getCustomer().getUuid()).message("LOGGED OUT SUCCESSFULLY");
+        return new ResponseEntity<LogoutResponse>(response, HttpStatus.OK);
+    }
+
+    /**
+     * This method takes updated customer information and updates it in the system
+     *
+     * @param headerParam Customer access token as a request header parameter
+     * @param request Updated Customer Information like Name
+     * @return ResponseEntity with updated customer name
+     * @throws AuthorizationFailedException on invalid/incorrect access token
+     * @throws UpdateCustomerException on invalid customer information
+     * @throws UnexpectedException on any other errors
+     */
+    @CrossOrigin
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            path = "",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UpdateCustomerResponse> updateCustomer(
+            @RequestHeader("authorization") final String headerParam,
+            @RequestBody(required = false) final UpdateCustomerRequest request)
+            throws UnexpectedException, AuthorizationFailedException, UpdateCustomerException {
+
+        // Validate if all necessary information is available in the input request
+        validateUpdateCustomerRequest(request);
+
+        // Get Bearer Authorization Token
+        final String accessToken = AppUtils.getBearerAuthToken(headerParam);
+
+        // Get Customer Entity from Access Token
+        final CustomerEntity customerEntity = customerService.getCustomer(accessToken);
+
+        // Update customer details
+        customerEntity.setFirstName(request.getFirstName());
+        customerEntity.setLastName(request.getLastName());
+
+        // Store updated Customer Entity in the database
+        final CustomerEntity updatedCustomerEntity = customerService.updateCustomer(customerEntity);
+
+        // Map updated customer to Update Customer Response object
+        final UpdateCustomerResponse response = new UpdateCustomerResponse();
+        response
+                .id(updatedCustomerEntity.getUuid())
+                .firstName(updatedCustomerEntity.getFirstName())
+                .lastName(updatedCustomerEntity.getLastName())
+                .status("CUSTOMER DETAILS UPDATED SUCCESSFULLY");
+        return new ResponseEntity<UpdateCustomerResponse>(response, HttpStatus.OK);
+    }
+
+    /**
+     * Methods takes updated password information from the customer and updates it in the system
+     *
+     * @param headerParam Customer access token as request header param
+     * @param request Customer Current & New Passwords
+     * @return Customer id
+     * @throws AuthorizationFailedException on incorrect/invalid access token
+     * @throws UpdateCustomerException on incorrect/invalid old/new password
+     * @throws UnexpectedException on any other errors
+     */
+    @CrossOrigin
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            path = "/password",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<UpdatePasswordResponse> changePassword(
+            @RequestHeader("authorization") final String headerParam,
+            @RequestBody(required = false) final UpdatePasswordRequest request)
+            throws UnexpectedException, AuthorizationFailedException, UpdateCustomerException {
+
+        // Validate if all necessary information is available in the input request
+        validatePasswordChangeRequest(request);
+
+        // Get Bearer Authorization Token
+        final String accessToken = AppUtils.getBearerAuthToken(headerParam);
+
+        // Get Customer Entity from Access Token
+        final CustomerEntity customerEntity = customerService.getCustomer(accessToken);
+
+        // Update and store password
+        final CustomerEntity updatedCustomerEntity =
+                customerService.updateCustomerPassword(
+                        request.getOldPassword(), request.getNewPassword(), customerEntity);
+
+        // Map updated customer to Update Customer Response object
+        final UpdatePasswordResponse response = new UpdatePasswordResponse();
+        response.id(updatedCustomerEntity.getUuid()).status("CUSTOMER PASSWORD UPDATED SUCCESSFULLY");
+        return new ResponseEntity<UpdatePasswordResponse>(response, HttpStatus.OK);
+    }
+
+
     private void validateSignupRequest(SignupCustomerRequest request)
             throws SignUpRestrictedException {
         // Throw error if First Name/Password/Email Address/Contact Number are missing or empty
@@ -145,6 +262,38 @@ public class CustomerController {
         // Throw error if format of Basic Authentication Token is not right
         if (!authorizationToken.matches(AppConstants.REG_EXP_BASIC_AUTH)) {
             throw new AuthenticationFailedException(ATH_003.getCode(), ATH_003.getDefaultMessage());
+        }
+    }
+
+    /**
+     * This method validates if Customer update request has all necessary information
+     *
+     * @param request Customer Update Information request
+     * @throws UpdateCustomerException when first name is missing on the request
+     */
+    private void validateUpdateCustomerRequest(UpdateCustomerRequest request)
+            throws UpdateCustomerException {
+        // Throw error if First Name is missing or empty
+        if (request.getFirstName() == null || request.getFirstName().isEmpty()) {
+            throw new UpdateCustomerException(UCR_002.getCode(), UCR_002.getDefaultMessage());
+        }
+    }
+
+    /**
+     * This method validates if Customer password change request has all necessary information
+     *
+     * @param request Customers Password Change request
+     * @throws UpdateCustomerException when old password or new password or both are missing on the
+     *     input request
+     */
+    private void validatePasswordChangeRequest(UpdatePasswordRequest request)
+            throws UpdateCustomerException {
+        // Throw error if Old/New Password(s) are missing or empty
+        if ((request.getOldPassword() == null)
+                || (request.getNewPassword() == null)
+                || (request.getOldPassword().isEmpty())
+                || (request.getNewPassword().isEmpty())) {
+            throw new UpdateCustomerException(UCR_003.getCode(), UCR_003.getDefaultMessage());
         }
     }
 }

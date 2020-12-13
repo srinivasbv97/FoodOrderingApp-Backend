@@ -6,7 +6,9 @@ import com.upgrad.FoodOrderingApp.service.dao.CustomerDao;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import com.upgrad.FoodOrderingApp.service.exception.AuthenticationFailedException;
+import com.upgrad.FoodOrderingApp.service.exception.AuthorizationFailedException;
 import com.upgrad.FoodOrderingApp.service.exception.SignUpRestrictedException;
+import com.upgrad.FoodOrderingApp.service.exception.UpdateCustomerException;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
@@ -128,6 +131,117 @@ public class CustomerService {
         // Supplied password and stored password don't match
         else {
             throw new AuthenticationFailedException(ATH_002.getCode(), ATH_002.getDefaultMessage());
+        }
+    }
+
+    /**
+     * Method takes customer's access token and invalidates it
+     *
+     * @param accessToken Customer's access token
+     * @return CustomerAuthEntity with invalidated customer authentication
+     * @throws AuthorizationFailedException on incorrect/invalid access token
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerAuthEntity logout(final String accessToken) throws AuthorizationFailedException {
+        final CustomerAuthEntity customerAuthEntity =
+                getCustomerAuthenticationByAccessToken(accessToken);
+        customerAuthEntity.setLogoutAt(LocalDateTime.now());
+        return customerDao.saveCustomerAuthentication(customerAuthEntity);
+    }
+
+    /**
+     * Method takes customer's access token and fetches his details
+     *
+     * @param accessToken Customer's accessToken
+     * @return CustomerAuthEntity with customer's authentication information
+     * @throws AuthorizationFailedException
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerEntity getCustomer(final String accessToken) throws AuthorizationFailedException {
+        final CustomerAuthEntity customerAuthEntity =
+                getCustomerAuthenticationByAccessToken(accessToken);
+        return customerAuthEntity.getCustomer();
+    }
+
+    /**
+     * Method takes updated CustomerEntity and stores it to the database
+     *
+     * @param customerEntity Updated CustomerEntity
+     * @return Updated CustomerEntity
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerEntity updateCustomer(final CustomerEntity customerEntity) {
+        return customerDao.updateCustomer(customerEntity);
+    }
+
+    /**
+     * Method takes customer's old & new passwords and updates it in the database
+     *
+     * @param oldPassword Customer's old password
+     * @param newPassword Customer's new password
+     * @param customerEntity CustomerEntity with old Password
+     * @return Updated CustomerEntity with new password
+     * @throws UpdateCustomerException on incorrect old password & invalid new password
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
+    public CustomerEntity updateCustomerPassword(
+            final String oldPassword, final String newPassword, final CustomerEntity customerEntity)
+            throws UpdateCustomerException {
+        // Check password meets specified minimum requirements
+        if (!isStrongPassword(newPassword)) {
+            throw new UpdateCustomerException(UCR_001.getCode(), UCR_001.getDefaultMessage());
+        } else {
+            // Encrypt old password
+            final String encryptedOldPassword =
+                    PasswordCryptographyProvider.encrypt(oldPassword, customerEntity.getSalt());
+
+            // Check encrypted old password is correct/valid (authorize customer)
+            if (encryptedOldPassword != null
+                    && encryptedOldPassword.equals(customerEntity.getPassword())) {
+
+                // Encrypt new password
+                final String[] encryptedText = passwordCryptographyProvider.encrypt(newPassword);
+                customerEntity.setSalt(encryptedText[0]);
+                customerEntity.setPassword(encryptedText[1]);
+
+                // Update customer with new password
+                return customerDao.updateCustomer(customerEntity);
+            } else {
+                // Throw error on incorrect old password
+                throw new UpdateCustomerException(UCR_004.getCode(), UCR_004.getDefaultMessage());
+            }
+        }
+    }
+
+    /**
+     * Method takes customer's access token and returns CustomerAuthEntity
+     *
+     * @param accessToken Customer's access token
+     * @return CustomerAuthEntity of the authenticate customer
+     * @throws AuthorizationFailedException on invalid/expired/non-existent access token
+     */
+    public CustomerAuthEntity getCustomerAuthenticationByAccessToken(final String accessToken)
+            throws AuthorizationFailedException {
+        // Get customer authentication by access token
+        final CustomerAuthEntity customerAuthEntity =
+                customerDao.getCustomerAuthenticationByAccessToken(accessToken);
+        if (customerAuthEntity != null) {
+            // Throw error if access token has expired
+            if (customerAuthEntity.getExpiresAt().isBefore(LocalDateTime.now())) {
+                throw new AuthorizationFailedException(ATHR_003.getCode(), ATHR_003.getDefaultMessage());
+            } else {
+                // Throw error if access token has previously been invalidated
+                if (customerAuthEntity.getLogoutAt() != null) {
+                    throw new AuthorizationFailedException(ATHR_002.getCode(), ATHR_002.getDefaultMessage());
+                } else {
+                    // Return CustomerAuthEntity
+                    return customerAuthEntity;
+                }
+            }
+        }
+        // Throw error if no such access token is registered against the customer
+        else {
+            throw new AuthorizationFailedException(ATHR_001.getCode(), ATHR_001.getDefaultMessage());
         }
     }
 
