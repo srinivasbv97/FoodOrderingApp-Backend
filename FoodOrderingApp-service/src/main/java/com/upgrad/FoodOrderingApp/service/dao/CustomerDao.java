@@ -1,11 +1,13 @@
 package com.upgrad.FoodOrderingApp.service.dao;
 
+import com.upgrad.FoodOrderingApp.service.entity.CustomerAuthEntity;
 import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 @Repository
@@ -26,4 +28,33 @@ public class CustomerDao {
         return customerEntity;
     }
 
+    /**
+     * Method takes a CustomerAuthEntity and stores it in the database
+     *
+     * @param customerAuthEntity CustomerAuthEntity to persist
+     * @return persisted CustomerAuthEntity
+     */
+    public CustomerAuthEntity saveCustomerAuthentication(
+            final CustomerAuthEntity customerAuthEntity) {
+        entityManager.persist(customerAuthEntity);
+        return customerAuthEntity;
+    }
+
+
+    /**
+     * Method takes a contact number and returns the matching CustomerEntity
+     *
+     * @param contactNumber contact number
+     * @return CustomerEntity
+     */
+    public CustomerEntity getCustomerByContactNumber(final String contactNumber) {
+        try {
+            return entityManager
+                    .createNamedQuery("Customer.ByContact", CustomerEntity.class)
+                    .setParameter("contactNumber", contactNumber)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 }
