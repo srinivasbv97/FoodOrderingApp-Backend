@@ -27,7 +27,10 @@ io\swagger\api\ApiException.class
 com\upgrad\FoodOrderingApp\api\model\CategoryListResponse.class
 com\upgrad\FoodOrderingApp\api\model\OrderListCoupon.class
 com\upgrad\FoodOrderingApp\api\model\UpdatePasswordResponse.class
+<<<<<<< HEAD
 com\upgrad\FoodOrderingApp\api\controller\CustomerController.class
+=======
+>>>>>>> REST-API-3
 com\upgrad\FoodOrderingApp\api\model\PaymentResponse.class
 com\upgrad\FoodOrderingApp\api\model\AddressList.class
 com\upgrad\FoodOrderingApp\api\model\LogoutResponse.class

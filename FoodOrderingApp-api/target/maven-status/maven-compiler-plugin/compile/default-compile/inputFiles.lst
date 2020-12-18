@@ -9,7 +9,10 @@ C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingA
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\RestaurantListResponse.java
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\UpdatePasswordRequest.java
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\CategoriesListResponse.java
+<<<<<<< HEAD
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\src\main\java\com\upgrad\FoodOrderingApp\api\controller\CustomerController.java
+=======
+>>>>>>> REST-API-3
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\AddressList.java
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\SignupCustomerRequest.java
 C:\Users\vishn\OneDrive\Desktop\sri_ex\FoodOrderingAppBackend-STUB\FoodOrderingApp-api\target\generated-sources\.\com\upgrad\FoodOrderingApp\api\model\StatesList.java

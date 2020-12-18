@@ -29,7 +29,6 @@ public class AppUtils {
   }
 
 
-
   /**
    * Takes a bearer authorization token removes prefix
    *
