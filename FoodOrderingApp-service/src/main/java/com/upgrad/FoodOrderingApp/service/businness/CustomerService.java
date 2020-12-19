@@ -1,5 +1,4 @@
 package com.upgrad.FoodOrderingApp.service.businness;
-
 import com.upgrad.FoodOrderingApp.service.common.AppConstants;
 import com.upgrad.FoodOrderingApp.service.common.UnexpectedException;
 import com.upgrad.FoodOrderingApp.service.dao.CustomerDao;
@@ -16,21 +15,21 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.UUID;
-
 import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.*;
 import static com.upgrad.FoodOrderingApp.service.common.GenericErrorCode.GEN_001;
 
 @Service
 public class CustomerService {
+
     @Autowired
     private CustomerDao customerDao;
 
     @Autowired
     private PasswordCryptographyProvider passwordCryptographyProvider;
+
 
     /**
      * Method takes CustomerEntity and stores it on the database
@@ -292,4 +291,5 @@ public class CustomerService {
         return email.matches(AppConstants.REG_EXP_VALID_EMAIL);
     }
 }
+
 

@@ -1,11 +1,7 @@
 package com.upgrad.FoodOrderingApp.api.controller;
 
 import com.upgrad.FoodOrderingApp.api.model.*;
-import com.upgrad.FoodOrderingApp.service.business.*;
-import com.upgrad.FoodOrderingApp.service.businness.AddressService;
-import com.upgrad.FoodOrderingApp.service.businness.CustomerService;
-import com.upgrad.FoodOrderingApp.service.businness.OrderService;
-import com.upgrad.FoodOrderingApp.service.businness.PaymentService;
+import com.upgrad.FoodOrderingApp.service.businness.*;
 import com.upgrad.FoodOrderingApp.service.common.AppUtils;
 import com.upgrad.FoodOrderingApp.service.entity.*;
 import com.upgrad.FoodOrderingApp.service.exception.*;
@@ -231,7 +227,7 @@ public class OrderController {
     List<OrderItemEntity> orderItemEntities = new ArrayList<>();
     for (ItemQuantity itemQuantity : itemQuantities) {
       OrderItemEntity orderedItem = new OrderItemEntity();
-      ItemEntity itemEntity = itemService.getItemById(itemQuantity.getItemId().toString());
+      ItemEntity itemEntity = itemService.getItemByUUID(itemQuantity.getItemId().toString());
       orderedItem.setOrder(savedOrderEntity);
       orderedItem.setItem(itemEntity);
       orderedItem.setQuantity(itemQuantity.getQuantity());

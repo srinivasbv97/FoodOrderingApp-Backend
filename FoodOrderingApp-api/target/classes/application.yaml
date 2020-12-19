@@ -13,7 +13,6 @@ spring:
     url: jdbc:postgresql://localhost:5432/restaurantdb
     username: postgres
     password: Vis1974!
-
   jpa:
     properties:
       hibernate:

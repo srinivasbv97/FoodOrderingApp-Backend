@@ -42,13 +42,6 @@
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
         </dependency>
-<<<<<<< HEAD
-=======
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-        </dependency>
->>>>>>> REST-API-3
 
         <dependency>
             <groupId>org.javassist</groupId>

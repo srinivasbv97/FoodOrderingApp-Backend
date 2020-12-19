@@ -182,4 +182,5 @@ public class AddressEntity implements Serializable, Comparable<AddressEntity> {
   public String toString() {
     return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
   }
+
 }

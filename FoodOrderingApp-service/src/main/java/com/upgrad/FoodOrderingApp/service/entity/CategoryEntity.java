@@ -1,34 +1,23 @@
 package com.upgrad.FoodOrderingApp.service.entity;
 
-import org.apache.commons.lang3.builder.*;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
 
 @Entity
 @Table(name = "category")
 @NamedQueries({
-  @NamedQuery(
-      name = "Category.fetchAllCategories",
-      query = "SELECT c FROM CategoryEntity c order by c.categoryName"),
-  @NamedQuery(
-      name = "Category.fetchCategoryItem",
-      query = "SELECT ci FROM CategoryEntity ci WHERE ci.uuid=:categoryId")
+        @NamedQuery(name = "allCategories", query = "select q from CategoryEntity q"),
+        @NamedQuery(name = "categoryByUuid", query = "select q from CategoryEntity q where q.uuid = :uuid"),
 })
-public class CategoryEntity implements Serializable, Comparable<CategoryEntity> {
+public class CategoryEntity implements Serializable {
+
   @Id
-  @Column(name = "id")
-  @GeneratedValue(generator = "categoryIdGenerator")
-  @SequenceGenerator(
-      name = "categoryIdGenerator",
-      sequenceName = "category_id_seq",
-      initialValue = 1,
-      allocationSize = 1)
-  @ToStringExclude
-  @HashCodeExclude
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   @Column(name = "uuid")
@@ -37,11 +26,19 @@ public class CategoryEntity implements Serializable, Comparable<CategoryEntity> 
   private String uuid;
 
   @Column(name = "category_name")
-  @Size(max = 30)
+  @NotNull
+  @Size(max = 255)
   private String categoryName;
 
-  @ManyToMany(mappedBy = "categories", fetch = FetchType.EAGER)
-  private List<ItemEntity> items;
+  @ManyToMany
+  @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "category_id"),
+          inverseJoinColumns = @JoinColumn(name = "item_id"))
+  private List<ItemEntity> items = new ArrayList<>();
+
+  @ManyToMany
+  @JoinTable(name = "restaurant_category", joinColumns = @JoinColumn(name = "category_id"),
+          inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+  private List<RestaurantEntity> restaurants = new ArrayList<>();
 
   public Integer getId() {
     return id;
@@ -75,23 +72,11 @@ public class CategoryEntity implements Serializable, Comparable<CategoryEntity> 
     this.items = items;
   }
 
-  @Override
-  public boolean equals(Object obj) {
-    return EqualsBuilder.reflectionEquals(this, obj, Boolean.FALSE);
+  public List<RestaurantEntity> getRestaurants() {
+    return restaurants;
   }
 
-  @Override
-  public int hashCode() {
-    return HashCodeBuilder.reflectionHashCode(this, Boolean.FALSE);
-  }
-
-  @Override
-  public String toString() {
-    return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
-  }
-
-  @Override
-  public int compareTo(CategoryEntity categoryEntity) {
-    return 0;
+  public void setRestaurants(List<RestaurantEntity> restaurants) {
+    this.restaurants = restaurants;
   }
 }
